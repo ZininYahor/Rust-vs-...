@@ -7,7 +7,7 @@ CARGO       := cargo
 WASM_PACK   := wasm-pack
 NODE        := node
 BUN        := bun
-
+PYTHON := python3
 # Flags
 CXXFLAGS    := -std=c++17 -O3
 GOFLAGS     := -ldflags="-s -w"
@@ -21,6 +21,7 @@ CPP_OUT     := collatz_cpp
 GO_SRC      := collatz.go
 GO_OUT      := collatz_go
 
+PYTHON_SRC := collatz.py
 # Rust: we'll let Cargo build it into target/release/collatz
 RS_BIN      := target/release/collatz
 
@@ -66,20 +67,31 @@ run: build
 	@echo "$(RED)==> Running C++ implementation$(NC)"
 	@for i in 1 2 3 4 5; do ./$(CPP_OUT); done
 	@echo
+
 	@echo "$(GREEN)==> Running Go implementation$(NC)"
 	@for i in 1 2 3 4 5; do ./$(GO_OUT); done
 	@echo
+
 	@echo "$(BLUE)==> Running native Rust implementation$(NC)"
 	@for i in 1 2 3 4 5; do $(RS_BIN); done
 	@echo
+
 	@echo "$(CYAN)==> Running Node.js WASM implementation$(NC)"
 	@for i in 1 2 3 4 5; do $(NODE) $(WASM_ENTRY); done
 	@echo
+
 	@echo "$(KT)==> Running Node.js implementation$(NC)"
-	@for i in 1 2 3 4 5; do $(NODE) $(NODE_ENTRY); done
+	@for i in 1; do $(NODE) $(NODE_ENTRY); done
 	@echo
+
 	@echo "$(YELLOW)==> Running Bun (js) implementation$(NC)"
-	@for i in 1 2 3 4 5; do $(BUN) $(NODE_ENTRY); done
+	@for i in 1; do $(BUN) $(NODE_ENTRY); done
+	@echo
+
+	@echo "$(GREEN)==> Running Python implementation$(NC)"
+	@for i in 1; do $(PYTHON) $(PYTHON_SRC); done
+	@echo
+
 	@$(MAKE) clean
 clean:
 	@rm -f $(CPP_OUT) $(GO_OUT)
