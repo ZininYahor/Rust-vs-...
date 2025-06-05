@@ -1,4 +1,4 @@
-# rust_vs_go
+# rust_vs_...
 
 A comparative study and implementation of similar functionalities in Rust, Go, C++, and Makefile. This repository demonstrates how common programming tasks can be solved using different languages, highlighting their syntax, performance, and ecosystem differences.
 
